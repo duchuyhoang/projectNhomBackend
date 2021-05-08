@@ -1,0 +1,30 @@
+POST http://localhost:3001/login
+Content-Type:application/json
+
+{
+  "email":"huyhoang10032000@gmail.com",
+  "password":"12345"
+}
+
+###
+
+GET http://localhost:3001/homes
+Content-Type:application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjIwMzg4MjUwLCJleHAiOjE2MjAzODgyODB9.7p-GzPVxYC1PNWf9lmvJPZT_oR4ZCKga2epd2Kb1iJg
+
+{
+    "token":"adada"
+}
+
+###
+POST http://localhost:3001/refresh_token
+Content-Type:application/json
+
+{
+  "refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbnB1dCI6eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIn0sInJlZnJlc3RUb2tlbkV4cGlyZVRpbWUiOjE2MjA0Nzk1MjA5MjYsImlhdCI6MTYyMDM5MzEyMCwiZXhwIjoxNjIwNDc5NTIwfQ.F9GE53fJBOMJsM1S_xBI_5593ypRYhpbIY_a4"
+}
+
+###
+
+POST http://localhost:3001/re_login
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEwMDAsInRva2VuRXhwaXJlVGltZSI6MTYyMDUwNjg5NjY5MSwiaWF0IjoxNjIwNTAzMjk2LCJleHAiOjE2MjA1MDY4OTZ9.dCsIB1rGIqsNzSSA3NuyfP-2JBeORcoMUwVH8HTdXYI
