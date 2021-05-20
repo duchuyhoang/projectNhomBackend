@@ -1,10 +1,13 @@
 const express=require('express');
 require('dotenv').config();
 const app=express();
+const path=require('path');
 var cors = require('cors')
 const PORT=process.env.PORT||3001;
 const home=require("./app/routers/home.router");
 const login=require("./app/routers/login.router")
+const signUp=require("./app/routers/signup.router")
+app.use(express.static(path.join(__dirname, 'app/assets')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.text());
@@ -21,7 +24,8 @@ app.use(cors())
 // app.use(allowCrossDomain)
 
 app.use("/",home);
-app.use("/",login)
+app.use("/",login);
+app.use("/",signUp);
 app.post("/hello",(req,res)=>{
 })
 
