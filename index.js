@@ -7,6 +7,7 @@ const PORT=process.env.PORT||3001;
 const home=require("./app/routers/home.router");
 const login=require("./app/routers/login.router")
 const signUp=require("./app/routers/signup.router")
+const room=require("./app/routers/room.router")
 app.use(express.static(path.join(__dirname, 'app/assets')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +27,9 @@ app.use(cors())
 app.use("/",home);
 app.use("/",login);
 app.use("/",signUp);
+app.use("/",room);
 app.post("/hello",(req,res)=>{
+    console.log("hee");
 })
 
 
