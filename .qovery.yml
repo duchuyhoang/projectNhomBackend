@@ -1,0 +1,15 @@
+---
+application:
+  name: "projectnhombackend"
+  project: "api-phong-tro"
+  organization: "QoveryCommunity"
+databases:
+- type: "MYSQL"
+  name: "phong_tro"
+  version: "8.0"
+routers:
+- name: "main-projectnhombackend"
+  routes:
+  - application_name: "projectnhombackend"
+    paths:
+    - "/*"
