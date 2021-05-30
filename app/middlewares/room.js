@@ -29,7 +29,7 @@ function handleRenameFile(req, file) {
 
 
 
-exports.handleChangeRoomName = (req, res, next) => {
+exports.handleChangeRoomImgName = (req, res, next) => {
     // console.log("file", req.file);
     // console.log("files", req.files);
 

@@ -29,9 +29,11 @@ app.use("/",login);
 app.use("/",signUp);
 app.use("/",room);
 app.post("/hello",(req,res)=>{
-    console.log("hee");
+    res.json({message:"dâda"})
 })
-
+app.get("/hello",(req,res)=>{
+    res.json({message:"dâda"})
+})
 
 app.listen(PORT,()=>{
     console.log("Server is listening on port "+PORT);

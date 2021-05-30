@@ -75,7 +75,9 @@ class User {
         })
     }
 
-
+static changeUserInfo=(data)=>{
+    
+}
 
 }
 

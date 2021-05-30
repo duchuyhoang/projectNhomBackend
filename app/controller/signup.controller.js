@@ -1,5 +1,4 @@
 const User = require("../model/user.model");
-const staticConst = require("../common/staticConst");
 
 exports.signUp = async (req, res) => {
     console.log("body", req.body);
