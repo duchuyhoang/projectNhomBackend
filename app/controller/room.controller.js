@@ -3,7 +3,8 @@ const random = require('../ultil/random');
 const path = require('path')
 const roomModel = require('../model/room.model')
 const imgModel = require('../model/image.model')
-
+const ultilityModel = require('../model/ultilities.model');
+const createObjectModul = require('../ultil/createObject');
 
 const getTheNameRouter = (name) => {
 
@@ -28,82 +29,54 @@ const getTheNameRouter = (name) => {
 
 exports.handleAddRoom = (req, res) => {
 
-    // console.log("body", req.body);
-
-
-    // console.log(req.imgInfo);
-
+    // img info before middleware
     const imageInfoList = req.imgInfo
-
+    const requestUltilities = req.body.ultilities || null;
 
     // const requestData = req.body;
     // Key in database
-    const objectKey = ["name", "capacity", "acreage", "overview", "price",
-        "rent_or_sale", "longitude", "latitude", "city", "district", "house_number",
-        "region", "room_type"]
+    const roomKey = ["name", "capacity", "acreage", "overview", "price", "rent_or_sale",
+        "longitude", "latitude", "city", "district", "ward", "street", "house_number", "water_bill",
+        "utility_bill", "belongTo"];
+
+    const ultilitiesKey = ["id"];
+
     // "name_router"
-    var data = {}, imageList = [];
-
-    objectKey.forEach((key, _) => {
-        data[key] = req.body[key] || null
-    })
-
+    var data = createObjectModul.createObjectWithKeys(roomKey, req.body)
     data['name_router'] = getTheNameRouter(data['name']);
 
-    // Form data and multer using field in files 
 
+    // Form data and multer using field in files 
+    // affectedRow after insert a room
     roomModel.createRoom(data).then(affectedRow => {
 
-        // 
         const { insertId } = affectedRow;
-
+        var imgPromise = null, ultilitiesPromise = null;
         // Make image list into a dimensional array for bulk insert after 
-        if (imageInfoList) {
-            imageInfoList.forEach((img, _) => {
-                // imgData is id and link
-                let imgData = [insertId];
-                for (let key in img) {
-                    imgData.push(img[key])
-                }
-                imageList.push(imgData)
-                // imageList will be [[1,2,3],[1,4,5],[1,6,7]]
-            })
-        }
+        const imageList = createObjectModul.forBulkInsert(imageInfoList || [], insertId) || [];
 
-        if (imageInfoList) {
+        const ultilities =requestUltilities ? requestUltilities.map(ultility => { return createObjectModul.createObjectWithKeys(ultilitiesKey, JSON.parse(ultility)) }) : [];
+        const ultilitiesList = createObjectModul.forBulkInsert(ultilities, insertId) || [];
 
-            imgModel.insertRoomImage(insertId, imageList).then(value => {
-                res.status(200).json({
-                    status: 200, message: "Ok", data: {
-                        infoRoom: data,
-                        imgList:imageInfoList
-                    }
-                });
-            }).catch(err => {
-                console.log("errrr",err);
-                res.status(200).json("error")
-            })
-        }
+        imgPromise = imageInfoList ? imgModel.insertRoomImage(insertId, imageList) : null;
+        ultilitiesPromise = requestUltilities ? ultilityModel.insertRoomUltilities(insertId, ultilitiesList) : null;
 
-        else
+        Promise.all([imgPromise, ultilitiesPromise]).then((value) => {
             res.status(200).json({
                 status: 200, message: "Ok", data: {
+                    idRoom: insertId,
                     infoRoom: data,
-                    imgList:null
+                    imgList: imageInfoList,
+                    ultilitiesList: requestUltilities && requestUltilities.map(ultility => JSON.parse(ultility)) || null,
                 }
             });
-        // 
-    })
-        .catch(err => {
-            res.status(200).json(err)
+        }).catch(err => {
+            console.log(err);
+            res.status(409).json(err)
         })
 
-
-
-
-
-
-
-
-
+    }).catch(err => {
+        console.log("er", err);
+        res.status(409).json(err)
+    })
 }

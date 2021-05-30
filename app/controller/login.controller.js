@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require("jsonwebtoken");
-const loginMiddleware = require('../middlewares/checkJWT')
+const loginMiddleware = require('../middlewares/checkJWT');
+const databaseConst = require('../common/const');
 const User = require("../model/user.model");
 
 const generateAccessToken = (input) => {
@@ -30,13 +31,18 @@ exports.login = async (req, res) => {
     try {
         const result = await User.verifyLogin(clientEmail, clientPassword)
         if (!!result) {
-            const { id, email } = result[0];
-            const accessToken = generateAccessToken({ email, id });
-            const refreshToken = generateRefreshToken({ email, id });
-            res.json({
-                accessToken,
-                refreshToken
-            })
+            const { id, email, permission } = result[0];
+            const permissionMapped = databaseConst.userAccountPermission[permission];
+console.log(permissionMapped);
+            if (permissionMapped) {
+                const accessToken = generateAccessToken({ email, id, permission:permissionMapped });
+                const refreshToken = generateRefreshToken({ email, id, permission:permissionMapped });
+                res.json({
+                    accessToken,
+                    refreshToken
+                })
+            }
+
         }
     }
     catch (err) {
@@ -51,12 +57,17 @@ exports.login = async (req, res) => {
 
 exports.reLogin = (req, res) => {
     // Get the body so we can sql get the user in this case default 
-
-    const accessToken = generateAccessToken({ id: req.body.id, email: "huyhoang10032000@gmail.com" });
+const {oldTokenInfo}=req.body||null;
+if(oldTokenInfo){
+    const {id,email,permission}=oldTokenInfo
+    const accessToken = generateAccessToken({ id, email,permission });
 
     res.json({
         accessToken
     })
+}
+    else
+    res.status(401).json({ message: "Unauthorized" })
 
 
 }

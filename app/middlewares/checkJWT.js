@@ -35,6 +35,9 @@ exports.verifyToken=(req,res,next)=>{
     }
     else{
         req.body.id=decode.id || null;
+        req.body.email=decode.email || null;
+        // Return a old token info
+        req.body.oldTokenInfo=decode;
         next();
     }
     

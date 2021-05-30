@@ -24,13 +24,11 @@ for(let key in dataMap){
 }
 
 return new Promise(function(resolve, reject){
-    // SELECT LAST_INSERT_ID() AS insertedId;
 db.query(`INSERT INTO room( ${fields.join(",")} )  VALUES(${range.join(",")});`,
 data,
 (err,result)=>{
 
 if(err){
-    console.log("message",err.message);
     reject(err);
 }
 // The result here has insertId so we can return it just console.log to see

@@ -3,6 +3,7 @@ const roomRouter = express.Router();
 var loginMiddleware = require('../middlewares/checkJWT')
 const roomController = require('../controller/room.controller')
 const roomMiddleware = require('../middlewares/room');
+const permissionCheck =require("../middlewares/permissionCheck");
 var multer = require('multer')
 
 
@@ -23,7 +24,7 @@ var upload = multer({storage:storage})
 
 roomRouter.post("/uploadARoom",
     loginMiddleware.checkJWT,
-
+    // permissionCheck.checkEnoughPermission("MEMBER"),
     upload.fields([
         {
             name: "singleImage", maxCount: 1
@@ -31,7 +32,7 @@ roomRouter.post("/uploadARoom",
         {
             name: "multipleRoomImage", maxCount: 100
         }]),
-        roomMiddleware.handleChangeRoomName,
+        roomMiddleware.handleChangeRoomImgName,
     roomController.handleAddRoom
 )
 
