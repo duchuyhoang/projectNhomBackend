@@ -28,3 +28,7 @@ Content-Type:application/json
 
 POST http://localhost:3001/re_login
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEwMDAsInRva2VuRXhwaXJlVGltZSI6MTYyMDUwNjg5NjY5MSwiaWF0IjoxNjIwNTAzMjk2LCJleHAiOjE2MjA1MDY4OTZ9.dCsIB1rGIqsNzSSA3NuyfP-2JBeORcoMUwVH8HTdXYI
+
+###
+
+GET http://localhost:3001/province/getById/1

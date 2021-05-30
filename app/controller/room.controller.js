@@ -37,7 +37,7 @@ exports.handleAddRoom = (req, res) => {
     // Key in database
     const roomKey = ["name", "capacity", "acreage", "overview", "price", "rent_or_sale",
         "longitude", "latitude", "city", "district", "ward", "street", "house_number", "water_bill",
-        "utility_bill", "belongTo"];
+        "utility_bill", "belongTo","alley"];
 
     const ultilitiesKey = ["id"];
 
