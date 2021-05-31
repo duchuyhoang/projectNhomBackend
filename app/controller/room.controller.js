@@ -37,7 +37,7 @@ exports.handleAddRoom = (req, res) => {
     // Key in database
     const roomKey = ["name", "capacity", "acreage", "overview", "price", "rent_or_sale",
         "longitude", "latitude", "city", "district", "ward", "street", "house_number", "water_bill",
-        "utility_bill", "belongTo"];
+        "utility_bill", "belongTo", "alley"];
 
     const ultilitiesKey = ["id"];
 
@@ -55,7 +55,7 @@ exports.handleAddRoom = (req, res) => {
         // Make image list into a dimensional array for bulk insert after 
         const imageList = createObjectModul.forBulkInsert(imageInfoList || [], insertId) || [];
 
-        const ultilities =requestUltilities ? requestUltilities.map(ultility => { return createObjectModul.createObjectWithKeys(ultilitiesKey, JSON.parse(ultility)) }) : [];
+        const ultilities = requestUltilities ? requestUltilities.map(ultility => { return createObjectModul.createObjectWithKeys(ultilitiesKey, JSON.parse(ultility)) }) : [];
         const ultilitiesList = createObjectModul.forBulkInsert(ultilities, insertId) || [];
 
         imgPromise = imageInfoList ? imgModel.insertRoomImage(insertId, imageList) : null;
@@ -78,5 +78,26 @@ exports.handleAddRoom = (req, res) => {
     }).catch(err => {
         console.log("er", err);
         res.status(409).json(err)
+    })
+}
+
+
+exports.getAllRoom = (req, res) => {
+
+    const keyList1 = ["imagesLinks", "utilitiesIds"];
+    const keyList2 = ["imagesIds", "utilitiesName"];
+    const newKeyList = ["images", "utilities"];
+
+    roomModel.getAllRoom().then((values) => {
+        res.json({
+            message: "Ok", data: values.map((value) => {
+                return createObjectModul.normalizeObjectByKeyPair(keyList1, keyList2, newKeyList, value)
+            })
+        });
+
+        // res.json(values)
+    }).catch(err => {
+        console.log(err);
+        res.json({ message: "Error", data: null })
     })
 }

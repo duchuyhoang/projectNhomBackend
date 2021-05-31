@@ -33,7 +33,6 @@ exports.login = async (req, res) => {
         if (!!result) {
             const { id, email, permission } = result[0];
             const permissionMapped = databaseConst.userAccountPermission[permission];
-console.log(permissionMapped);
             if (permissionMapped) {
                 const accessToken = generateAccessToken({ email, id, permission:permissionMapped });
                 const refreshToken = generateRefreshToken({ email, id, permission:permissionMapped });
