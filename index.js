@@ -9,6 +9,11 @@ const login=require("./app/routers/login.router")
 const signUp=require("./app/routers/signup.router")
 const room=require("./app/routers/room.router")
 const province=require("./app/routers/province.router")
+const district=require("./app/routers/district.router")
+const ward=require("./app/routers/ward.router")
+const ultility=require("./app/routers/ultilities.router");
+
+
 app.use(express.static(path.join(__dirname, 'app/assets')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -30,6 +35,11 @@ app.use("/",login);
 app.use("/",signUp);
 app.use("/room",room);
 app.use("/province",province);
+app.use("/district",district);
+app.use("/ultility",ultility);
+app.use("/ward",ward);
+
+
 
 
 app.post("/hello",(req,res)=>{

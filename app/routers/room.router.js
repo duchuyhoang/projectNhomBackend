@@ -36,5 +36,10 @@ roomRouter.post("/uploadARoom",
     roomController.handleAddRoom
 )
 
+// room.get("/getRooms",
+
+// )
+
+roomRouter.get("/getAll",roomController.getAllRoom);
 
 module.exports = roomRouter

@@ -31,4 +31,4 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW
 
 ###
 
-GET http://localhost:3001/province/getById/1
+GET http://localhost:3001/ultility/getAll
