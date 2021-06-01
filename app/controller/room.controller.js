@@ -43,6 +43,8 @@ exports.handleAddRoom = (req, res) => {
 
     // "name_router"
     var data = createObjectModul.createObjectWithKeys(roomKey, req.body)
+    console.log("data",data);
+    console.log("body",req.body);
     data['name_router'] = getTheNameRouter(data['name']);
 
 

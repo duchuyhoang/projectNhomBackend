@@ -39,7 +39,8 @@ exports.handleChangeRoomImgName = (req, res, next) => {
 
 
     // Form data and multer using field in files 
-    if (req.files.singleImage) {
+    if (req?.files?.singleImage) {
+        console.log(req.files.singleImage);
         const singleFile = req.files.singleImage[0];
 
         let info = handleRenameFile(req, singleFile)
@@ -51,7 +52,7 @@ exports.handleChangeRoomImgName = (req, res, next) => {
 
     }
 
-    else if (req.files.multipleRoomImage) {
+    else if (req?.files?.multipleRoomImage) {
         // console.log("files", req.files.multipleRoomImage);
         const fileList = req.files.multipleRoomImage;
         fileList.forEach((file, index) => {

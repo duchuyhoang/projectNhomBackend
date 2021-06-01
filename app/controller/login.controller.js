@@ -81,7 +81,7 @@ exports.refreshToken = (req, res) => {
                 res.status(401).json({ error });
             }
             else {
-                const accessToken = generateAccessToken({ email: decode.email, id: decode.id });
+                const accessToken = generateAccessToken({ email: decode.email, id: decode.id,permission:decode.permission });
                 res.status(200).json({ accessToken });
             }
 
