@@ -31,7 +31,11 @@ exports.handleAddRoom = (req, res) => {
 
     // img info before middleware
     const imageInfoList = req.imgInfo
-    const requestUltilities = req.body.ultilities || null;
+    let requestUltilities = req.body.ultilities || null;
+
+if(!Array.isArray(requestUltilities)&&requestUltilities!==null){
+    requestUltilities=[requestUltilities];
+}
 
     // const requestData = req.body;
     // Key in database
@@ -93,7 +97,10 @@ exports.getAllRoom = (req, res) => {
     roomModel.getAllRoom().then((values) => {
         res.json({
             message: "Ok", data: values.map((value) => {
-                return createObjectModul.normalizeObjectByKeyPair(keyList1, keyList2, newKeyList, value)
+                return {
+                 ...createObjectModul.normalizeObjectByKeyPair(keyList1, keyList2, newKeyList, value),
+                 createTime:new Date(value.createTime)
+                }
             })
         });
 
@@ -102,4 +109,33 @@ exports.getAllRoom = (req, res) => {
         console.log(err);
         res.json({ message: "Error", data: null })
     })
+}
+
+
+exports.getLatestRoom= (req, res) => {
+
+const count=req.params.count|| 16 ;
+
+    const keyList1 = ["imagesLinks", "utilitiesIds"];
+    const keyList2 = ["imagesIds", "utilitiesName"];
+    const newKeyList = ["images", "utilities"];
+
+    roomModel.getLatestRoom(count).then((values) => {
+        res.json({
+            message: "Ok", data: values.map((value) => {
+                return {
+                 ...createObjectModul.normalizeObjectByKeyPair(keyList1, keyList2, newKeyList, value),
+                 createTime:new Date(value.createTime)
+                }
+            })
+        });
+
+        // res.json(values)
+    }).catch(err => {
+        console.log(err);
+        res.json({ message: "Error", data: null })
+    })
+
+
+
 }

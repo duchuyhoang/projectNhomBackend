@@ -46,8 +46,13 @@ app.post("/hello",(req,res)=>{
     res.json({message:"dâda"})
 })
 app.get("/hello",(req,res)=>{
+    console.log(req.params);
+    req.get('host')
     res.json({message:"dâda"})
 })
+
+
+
 
 app.listen(PORT,()=>{
     console.log("Server is listening on port "+PORT);

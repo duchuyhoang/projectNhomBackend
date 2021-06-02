@@ -42,4 +42,7 @@ roomRouter.post("/uploadARoom",
 
 roomRouter.get("/getAll",roomController.getAllRoom);
 
+roomRouter.get("/getLatest/:count",roomController.getLatestRoom);
+
+
 module.exports = roomRouter

@@ -1,8 +1,8 @@
 const db = require('../common/connection');
-const staticConst=require('../common/staticConst');
-class Room{
+const staticConst = require('../common/staticConst');
+class Room {
 
- static #baseRoomInfoQuery=`(SELECT room.*,
+    static #baseRoomInfoQuery = `SELECT room.*,
  province._name AS cityName,
  district._name AS districtName,
  ward._name AS wardName,
@@ -19,55 +19,71 @@ class Room{
  LEFT JOIN utilities_in_room ON room.id=utilities_in_room.id_room
  LEFT JOIN utilities ON utilities.id=utilities_in_room.id_ultility
  WHERE room.isShow=1
- GROUP BY room.id )`
+ GROUP BY room.id `
 
-static createRoom(dataMap){
+    static createRoom(dataMap) {
 
-let fields=[],range=[],data=[];
+        let fields = [], range = [], data = [];
 
-for(let key in dataMap){
-    fields.push(key);
-    range.push("?")
-    data.push(dataMap[key]);
-}
+        for (let key in dataMap) {
+            fields.push(key);
+            range.push("?")
+            data.push(dataMap[key]);
+        }
 
-return new Promise(function(resolve, reject){
-db.query(`INSERT INTO room( ${fields.join(",")} )  VALUES(${range.join(",")});`,
-data,
-(err,result)=>{
+        return new Promise(function (resolve, reject) {
+            db.query(`INSERT INTO room( ${fields.join(",")},createTime )  VALUES(${range.join(",")},NOW());`,
+                data,
+                (err, result) => {
 
-if(err){
-    reject(err);
-}
-// The result here has insertId so we can return it just console.log to see
-// console.log(result);
-// const {insertedId}=result[0];
-else
-resolve(result)
+                    if (err) {
+                        reject(err);
+                    }
+                    // The result here has insertId so we can return it just console.log to see
+                    // console.log(result);
+                    // const {insertedId}=result[0];
+                    else
+                        resolve(result)
 
-}
+                }
 
-)
+            )
 
-})
-
-
-}
-
-
-static getAllRoom(){
-    return new Promise((resolve, reject)=>{
-        db.query(this.#baseRoomInfoQuery,(err,result)=>{
-            if(err)
-            reject(err);
-            else
-            resolve(result)
         })
-    })
-    
+
+    }
+
+    static getAllRoom() {
+        return new Promise((resolve, reject) => {
+            db.query(this.#baseRoomInfoQuery, (err, result) => {
+                if (err)
+                    reject(err);
+                else
+                    resolve(result)
+            })
+        })
+
+    }
+
+    static getLatestRoom(count = 18) {
+        return new Promise((resolve, reject) => {
+            db.query(
+                this.#baseRoomInfoQuery + `ORDER BY room.id DESC LIMIT ${count}`,
+                (err, result) => {
+                    if (err)
+                        reject(err);
+                    else
+                        resolve(result)
+                })
+
+        })
+
+
+
+    }
+
+
+
 }
 
-
-}
-
-module.exports =Room
+module.exports = Room
