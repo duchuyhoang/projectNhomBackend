@@ -31,4 +31,4 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW
 
 ###
 
-GET http://localhost:3001/ultility/getAll
+GET http://localhost:3001/hello?id=1&name=huy
