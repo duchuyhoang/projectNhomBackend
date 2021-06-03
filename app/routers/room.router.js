@@ -44,5 +44,9 @@ roomRouter.get("/getAll",roomController.getAllRoom);
 
 roomRouter.get("/getLatest/:count",roomController.getLatestRoom);
 
+roomRouter.get("/search",roomController.searchRoom);
+
+roomRouter.get("/currentRoom/:name",roomController.currentRoom);
+
 
 module.exports = roomRouter

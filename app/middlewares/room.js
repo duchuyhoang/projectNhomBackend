@@ -30,11 +30,6 @@ function handleRenameFile(req, file) {
 
 
 exports.handleChangeRoomImgName = (req, res, next) => {
-    // console.log("file", req.file);
-    // console.log("files", req.files);
-
-
-    // imageInfo {imgLink,imgId}
     let imageInfo = [];
 
 
