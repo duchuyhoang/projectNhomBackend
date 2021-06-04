@@ -24,6 +24,7 @@ exports.userAccountPermission={
     "-1":"GUEST",
     "0":"MEMBER",
     "1":"CO_ADMIN",
+    "2":"ROOT_ADMIN"
 }
 
 exports.accountPermissionStatus={

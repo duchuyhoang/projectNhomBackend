@@ -35,4 +35,15 @@ GET http://localhost:3001/room/getAll
 
 ###
 
-GET http://localhost:3001/room/getAll
+GET http://localhost:3001/room/currentRoom/huy
+
+###
+
+POST http://localhost:3001/signup
+Content-Type:application/json
+
+{
+  "email":"hu@gmail.com",
+  "password":"1234567",
+  "user_name":"bhuy"
+}

@@ -63,21 +63,21 @@ class User {
         const { email, user_name, hash_password } = data;
         return new Promise((resolve, reject) => {
             db.query("INSERT INTO user_account(email,user_name,hash_password) VALUES(?,?,?) "
-                , [email, user_name, hash_password], (err) => {
+                , [email, user_name, hash_password], (err, result) => {
                     if (err)
                         reject({
                             status: 500,
                             message: "Error with the server"
                         })
-
+                    resolve({ status: 200, message: "Success", returnRow: result });
                 })
-            resolve({status:200,message:"Success"});
+
         })
     }
 
-static changeUserInfo=(data)=>{
-    
-}
+    static changeUserInfo = (data) => {
+
+    }
 
 }
 
