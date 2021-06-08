@@ -41,7 +41,7 @@ class User {
 
     static checkUserExist(email) {
         return new Promise((resolve, reject) => {
-            db.query("SELECT * FROM user_account WHERE email = ?", [email], (err, value) => {
+            db.query("SELECT * FROM user_account WHERE email = ? LIMIT 1", [email], (err, value) => {
                 if (err)
                     reject({
                         status: 500,
@@ -49,11 +49,12 @@ class User {
                     })
                 if (value.length > 0)
                     reject({
+                        user:value[0],
                         status: 409,
                         message: "User exist"
                     })
 
-                resolve({ isExist: false });
+                resolve(value);
             })
         })
     }

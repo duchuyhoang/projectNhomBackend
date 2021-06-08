@@ -3,6 +3,8 @@ require('dotenv').config();
 const app=express();
 const path=require('path');
 var cors = require('cors')
+const session = require('express-session');
+
 const PORT=process.env.PORT||3001;
 const home=require("./app/routers/home.router");
 const login=require("./app/routers/login.router")
@@ -13,6 +15,13 @@ const district=require("./app/routers/district.router")
 const ward=require("./app/routers/ward.router")
 const ultility=require("./app/routers/ultilities.router");
 
+
+
+app.use(session({
+    resave: true, 
+    saveUninitialized: true, 
+    secret: process.env.SESSION_SECRET, 
+    cookie: { maxAge: 60000 }}));
 
 app.use(express.static(path.join(__dirname, 'app/assets')));
 app.use(express.json())
