@@ -30,5 +30,6 @@ loginRouter.post("/re_login",loginMiddleware.verifyToken,loginController.reLogin
 
 loginRouter.post("/refresh_token", loginController.refreshToken);
 
+loginRouter.post("/loginFacebook",loginController.loginFacebook)
 
 module.exports = loginRouter

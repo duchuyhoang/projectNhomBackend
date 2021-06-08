@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require("jsonwebtoken");
 const loginMiddleware = require('../middlewares/checkJWT');
 const databaseConst = require('../common/const');
+const fetch = require('node-fetch');
 const User = require("../model/user.model");
 
 const generateAccessToken = (input) => {
@@ -34,8 +35,8 @@ exports.login = async (req, res) => {
             const { id, email, permission } = result[0];
             const permissionMapped = databaseConst.userAccountPermission[permission];
             if (permissionMapped) {
-                const accessToken = generateAccessToken({ email, id, permission:permissionMapped });
-                const refreshToken = generateRefreshToken({ email, id, permission:permissionMapped });
+                const accessToken = generateAccessToken({ email, id, permission: permissionMapped });
+                const refreshToken = generateRefreshToken({ email, id, permission: permissionMapped });
                 res.json({
                     accessToken,
                     refreshToken
@@ -56,17 +57,17 @@ exports.login = async (req, res) => {
 
 exports.reLogin = (req, res) => {
     // Get the body so we can sql get the user in this case default 
-const {oldTokenInfo}=req.body||null;
-if(oldTokenInfo){
-    const {id,email,permission}=oldTokenInfo
-    const accessToken = generateAccessToken({ id, email,permission });
+    const { oldTokenInfo } = req.body || null;
+    if (oldTokenInfo) {
+        const { id, email, permission } = oldTokenInfo
+        const accessToken = generateAccessToken({ id, email, permission });
 
-    res.json({
-        accessToken
-    })
-}
+        res.json({
+            accessToken
+        })
+    }
     else
-    res.status(401).json({ message: "Unauthorized" })
+        res.status(401).json({ message: "Unauthorized" })
 
 
 }
@@ -81,7 +82,7 @@ exports.refreshToken = (req, res) => {
                 res.status(401).json({ error });
             }
             else {
-                const accessToken = generateAccessToken({ email: decode.email, id: decode.id,permission:decode.permission });
+                const accessToken = generateAccessToken({ email: decode.email, id: decode.id, permission: decode.permission });
                 res.status(200).json({ accessToken });
             }
 
@@ -96,24 +97,71 @@ exports.refreshToken = (req, res) => {
 
 
 //Check user email if exist or not 
-exports.checkUserExist = (req, res) => {
+const checkUserExist = (email) => {
 
-    const email = req.body.email;
     if (email) {
-
-        User.verifyLogin(email).then((value) => {
-
-            res.json(value)
-
-        }).catch(err => {
-            res.status(err.status).json(err.message);
-        })
-
+        return User.checkUserExist(email);
     }
 
     else {
-        res.status(404).json("Email not valid");
+        return null;
     }
 
 
 }
+
+
+exports.loginFacebook = (req, res) => {
+
+    const { email, accessToken } = req.body;
+
+    const userExistResult = checkUserExist(email)
+
+    if (userExistResult !== null) {
+
+
+        userExistResult.then(value => {
+            if (value.length === 0) {
+                fetch(`https://graph.facebook.com/v10.0/me?fields=id,name,picture.width(100).height(100)&access_token=${accessToken}`)
+                    .then(res => { return res.json() })
+                    .then(value => {
+                        const facebookData = {
+                            name:value.name,
+                            id: value.id,
+                            avatar: value.picture.data.url,
+                            email: email
+                        }
+                        req.session.TemporatoryUser = facebookData
+
+                        res.status(302).json({ status: 302, firstFacebook: true, info: facebookData })
+
+
+                    }).catch(err => {
+                        console.log(err);
+                    })
+            }
+
+        })
+            .catch(err => {
+                const {id,email,permission} = err.user;
+                const permissionMapped = databaseConst.userAccountPermission[permission];
+
+                if (permissionMapped) {
+                    const accessToken = generateAccessToken({ email, id, permission: permissionMapped });
+                    const refreshToken = generateRefreshToken({ email, id, permission: permissionMapped });
+
+                    res.status(200).json({
+                        status:200,
+                        accessToken,
+                        refreshToken
+                    })
+                }
+            })
+
+
+    }
+
+
+}
+
+

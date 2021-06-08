@@ -60,3 +60,10 @@ exports.signUp = async (req, res) => {
 
 
 }
+
+
+
+
+exports.signupFacebook=(req,res)=>{
+
+}
