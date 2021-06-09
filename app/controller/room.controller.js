@@ -7,6 +7,8 @@ const ultilityModel = require('../model/ultilities.model');
 const createObjectModul = require('../ultil/createObject');
 const NodeCache = require("node-cache");
 const roomSelectAllCache = new NodeCache();
+const price_range = new NodeCache();
+const acreage_range = new NodeCache();
 const filterList = require("../ultil/filterFuncList")
 const MulitipleFilter = require('../ultil/multipleFilter');
 
@@ -47,8 +49,8 @@ exports.handleAddRoom = (req, res) => {
     // const requestData = req.body;
     // Key in database
     const roomKey = ["name", "capacity", "acreage", "overview", "price", "rent_or_sale",
-        "longitude", "latitude", "city", "district", "ward", "street", "house_number", "water_bill",
-        "utility_bill", "belongTo", "alley"];
+        "city", "district", "ward", "street", "house_number", "water_bill",
+        "utility_bill", "belongTo", "alley", "latitude", "longtitude"];
 
     const ultilitiesKey = ["id"];
 
@@ -205,9 +207,9 @@ exports.searchRoom = (req, res) => {
     }
 }
 
-exports.currentRoom=(req,res)=>{
-    const name=req.params.name;
-    roomModel.getRoomByNameRouter(name).then(values=>{
+exports.currentRoom = (req, res) => {
+    const name = req.params.name;
+    roomModel.getRoomByNameRouter(name).then(values => {
 
         const keyList1 = ["imagesLinks", "utilitiesIds"];
         const keyList2 = ["imagesIds", "utilitiesName"];
@@ -222,16 +224,65 @@ exports.currentRoom=(req,res)=>{
             })
         });
 
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
     })
 }
 
+exports.getRoomPriceRange = (req, res) => {
+
+    if (price_range.has("price_range")) {
+        res.json({ ...price_range.get("price_range") })
+
+    }
+    else {
+        roomModel.getRoomPriceRange().then(value => {
+
+            const { max_price, min_price } = value[0];
+            const price_range = {
+                max_price: max_price ? max_price : 0,
+                min_price: min_price ? min_price : 0,
+            }
+
+            price_range.set("price_range", price_range, 10)
+
+            res.json(price_range)
+        }).catch(err => {
+            res.json({
+                err: err.message
+            })
+        })
+    }
+
+
+}
+
+exports.getAcreageRange = (req, res) => {
+
+    if (acreage_range.has("acreage_range")) {
+        res.json({ ...acreage_range.get("acreage_range") })
+    }
+    else {
+        roomModel.getAcreageRange().then(value => {
+            const { max_acreage, min_acreage } = value[0];
+            const acreage_range = {
+                max_acreage: max_acreage ? max_acreage : 0,
+                min_acreage: min_acreage ? min_acreage : 0
+            }
+            acreage_range.set("acreage_range", acreage_range, 10)
+
+            res.json(acreage_range)
+        }).catch(err => {
+            res.json({
+                err: err.message
+            })
+        })
+
+    }
 
 
 
-
-
+}
 // })
 
 // }}

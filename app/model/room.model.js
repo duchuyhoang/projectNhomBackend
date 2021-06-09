@@ -29,7 +29,6 @@ user_profile.phone AS user_phone,
 
 
 
-
     static createRoom(dataMap) {
 
         let fields = [], range = [], data = [];
@@ -111,8 +110,35 @@ user_profile.phone AS user_phone,
 
     }
 
+    static getRoomPriceRange() {
+        return new Promise((resolve, reject) => {
+            db.query("SELECT MAX(room_list.price) AS max_price, MIN(room_list.price) AS min_price FROM (SELECT * FROM room ) AS room_list", (err, result) => {
+                if (err)
+                    reject(err);
+                else
+                    resolve(result)
+            })
+        })
+    }
+
+    static getAcreageRange() {
+
+        return new Promise((resolve, reject) => {
+            db.query("SELECT MAX(room_list.acreage) AS max_acreage, MIN(room_list.acreage) AS min_acreage FROM (SELECT * FROM room ) AS room_list",
+                (err, result) => {
+                    if (err)
+                        reject(err)
+                    else
+                        resolve(result)
+                })
+        })
+
+    }
 
 
 }
+
+
+
 
 module.exports = Room

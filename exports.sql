@@ -278,7 +278,7 @@ CREATE TABLE `room` (
   `overview` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` float NOT NULL,
   `rent_or_sale` tinyint DEFAULT '0',
-  `longitude` float DEFAULT NULL,
+  `longtitude` float DEFAULT NULL,
   `latitude` float DEFAULT NULL,
   `city` int unsigned NOT NULL,
   `district` int unsigned NOT NULL,
@@ -305,7 +305,7 @@ CREATE TABLE `room` (
   CONSTRAINT `room_ibfk_4` FOREIGN KEY (`city`) REFERENCES `province` (`id`),
   CONSTRAINT `room_ibfk_5` FOREIGN KEY (`district`) REFERENCES `district` (`id`),
   CONSTRAINT `room_ibfk_7` FOREIGN KEY (`ward`) REFERENCES `ward` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +314,7 @@ CREATE TABLE `room` (
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES (92,12,133333,'hello wworld i huy',13,0,NULL,NULL,2,28,'13',1,'hhaha','hhaha-GkhV',1,140000,150000,'1111111111adadadadad',390,'11','2021-06-02 11:57:26'),(93,100,133333,'adadadaaaada',3000000000,0,NULL,NULL,4,68,'1333',1,'huy','huy-2BLF',1,140000,150000,'1111111111adadadadad',1032,'11','2021-06-02 12:04:00');
+INSERT INTO `room` VALUES (92,12,133333,'hello wworld i huy',13,0,NULL,NULL,2,28,'13',1,'hhaha','hhaha-GkhV',1,140000,150000,'1111111111adadadadad',390,'11','2021-06-02 11:57:26'),(93,100,10000,'adadadaaaada',3000000000,0,NULL,NULL,4,68,'1333',1,'huy','huy-2BLF',1,140000,150000,'1111111111adadadadad',1032,'11','2021-06-02 12:04:00'),(94,12,100,'thêm tọa độ thành công',2000000,0,105.827,21.0129,2,32,'100',1,'thêm tọa độ','thêm-tọa-độ-R5et',1,140000,500000,'hello world',480,'11','2021-06-09 22:09:50');
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,7 +341,7 @@ CREATE TABLE `room_images` (
 
 LOCK TABLES `room_images` WRITE;
 /*!40000 ALTER TABLE `room_images` DISABLE KEYS */;
-INSERT INTO `room_images` VALUES (92,'http://localhost:3001/roomImg/sV3t361GXS0IZ3erAypKR9h2yrmfWQzXZ4Oo.png','1igmH3aUI6sYTgXfmd0Dxgv84HpT2pDTIlJs'),(92,'http://localhost:3001/roomImg/N6QluU8k74d84awqlhy0BqZqSOyNlRcLCuIl.png','cUDrL5coYHUmsJOLEyttVCqAB0Tv2mZlHwuZ'),(92,'http://localhost:3001/roomImg/lDf3NM0CdoodqVQla2lEXci3ufY8jz1Hgkdc.png','CXSIEGQInmEsPHscohfVurBnP29SozDSoVGw'),(92,'http://localhost:3001/roomImg/efR8uqbcWBPtMN5zq9E9KuMomsuerWpWi9ZR.png','jHwLDTWEs7PmEshPeA78Za9zPdUl8DHiFhBq');
+INSERT INTO `room_images` VALUES (92,'http://localhost:3001/roomImg/sV3t361GXS0IZ3erAypKR9h2yrmfWQzXZ4Oo.png','1igmH3aUI6sYTgXfmd0Dxgv84HpT2pDTIlJs'),(94,'http://localhost:3001/roomImg/H59mTSuJBdBySbWdpTTGhq9Xe7UyRXc3eyzp.png','3v44WtGQencrtmSgnJYWbGnjOnx1Sv4crQH4'),(92,'http://localhost:3001/roomImg/N6QluU8k74d84awqlhy0BqZqSOyNlRcLCuIl.png','cUDrL5coYHUmsJOLEyttVCqAB0Tv2mZlHwuZ'),(92,'http://localhost:3001/roomImg/lDf3NM0CdoodqVQla2lEXci3ufY8jz1Hgkdc.png','CXSIEGQInmEsPHscohfVurBnP29SozDSoVGw'),(94,'http://localhost:3001/roomImg/ipKPHZ9M8Bhl8xY96i7Rs1Nigtx6ITjYYsLb.png','J8KFqoB1h9iT7EXRPcr6R3rGdw901vpQ8IOZ'),(92,'http://localhost:3001/roomImg/efR8uqbcWBPtMN5zq9E9KuMomsuerWpWi9ZR.png','jHwLDTWEs7PmEshPeA78Za9zPdUl8DHiFhBq');
 /*!40000 ALTER TABLE `room_images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,7 +361,7 @@ CREATE TABLE `user_account` (
   `hash_password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11313132 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11313145 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +370,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,1,'huyhoang10032000@gmail.com','Đức Huy Hoàng',1,'12345'),(3,1,'huy123','hhhh',-1,'121344'),(4,1,'huyhoang1003200@gmail.com','huy',-1,'13566'),(5,1,'ADA','avvv',-1,'llll'),(11313131,1,'AxxxxxA','avvv',-1,'llll');
+INSERT INTO `user_account` VALUES (1,1,'huyhoang10032000@gmail.com','Đức Huy Hoàng',1,'12345'),(3,1,'huy123','hhhh',-1,'121344'),(5,1,'ADA','avvv',-1,'llll'),(11313143,1,'huytest@gmail.com','huy final test',-1,'10032000');
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +391,7 @@ CREATE TABLE `user_profile` (
   PRIMARY KEY (`id_profile`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,7 +400,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (1,1,'0328640767','https://scontent.fhan5-6.fna.fbcdn.net/v/t31.18172-8/27788301_747405972119527_849243654152381069_o.jpg?_nc_cat=107&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=a1WzBnDpWUUAX8IHO1q&_nc_ht=scontent.fhan5-6.fna&oh=c043f153db6cf0c5867842181190e531&oe=60BF3CD1',NULL,'Đức Huy Hoàng'),(2,3,NULL,NULL,NULL,'hhhh'),(3,4,NULL,NULL,NULL,'huy'),(4,5,NULL,NULL,NULL,'avvv'),(5,11313131,NULL,NULL,NULL,'avvv');
+INSERT INTO `user_profile` VALUES (1,1,'0328640767','https://scontent.fhan5-6.fna.fbcdn.net/v/t31.18172-8/27788301_747405972119527_849243654152381069_o.jpg?_nc_cat=107&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=a1WzBnDpWUUAX8IHO1q&_nc_ht=scontent.fhan5-6.fna&oh=c043f153db6cf0c5867842181190e531&oe=60BF3CD1',NULL,'Đức Huy Hoàng'),(2,3,NULL,NULL,NULL,'hhhh'),(17,11313143,NULL,NULL,NULL,'huy final test');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -479,7 +479,7 @@ CREATE TABLE `utilities_in_room` (
 
 LOCK TABLES `utilities_in_room` WRITE;
 /*!40000 ALTER TABLE `utilities_in_room` DISABLE KEYS */;
-INSERT INTO `utilities_in_room` VALUES (92,1),(92,3);
+INSERT INTO `utilities_in_room` VALUES (92,1),(92,3),(94,2);
 /*!40000 ALTER TABLE `utilities_in_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,4 +524,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-02 14:13:00
+-- Dump completed on 2021-06-09 22:17:06
