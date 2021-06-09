@@ -48,5 +48,8 @@ roomRouter.get("/search",roomController.searchRoom);
 
 roomRouter.get("/currentRoom/:name",roomController.currentRoom);
 
+roomRouter.get("/getPriceRange",roomController.getRoomPriceRange); 
+
+roomRouter.get("/getAcreageRange",roomController.getAcreageRange);
 
 module.exports = roomRouter

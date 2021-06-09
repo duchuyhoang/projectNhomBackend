@@ -17,6 +17,12 @@ exports.roomListFilter = {
     max_price: (value, price) => {
         return value.price <= price
     },
+    min_acreage:(value,acreage)=>{
+        return value.acreage>=acreage
+    },
+    max_price: (value,acreage)=>{
+        return value.acreage<=acreage;
+    },
     utilities: (value, listUtilitiesId) => {
         var pass = true;
         for (let index = 0; index < listUtilitiesId.length; index++) {
