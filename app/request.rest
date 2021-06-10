@@ -26,7 +26,7 @@ Content-Type:application/json
 
 ###
 
-GET http://localhost:3001/room/getPriceRange
+GET http://localhost:3001/room/getAcreageRange
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEwMDAsInRva2VuRXhwaXJlVGltZSI6MTYyMDUwNjg5NjY5MSwiaWF0IjoxNjIwNTAzMjk2LCJleHAiOjE2MjA1MDY4OTZ9.dCsIB1rGIqsNzSSA3NuyfP-2JBeORcoMUwVH8HTdXYI
 
 ###
@@ -35,7 +35,7 @@ GET http://localhost:3001/room/getAll
 
 ###
 
-GET http://localhost:3001/room/currentRoom/huy
+GET http://localhost:3001/room/search?min_price=10&page_index=1&items_per_page=4
 
 ###
 

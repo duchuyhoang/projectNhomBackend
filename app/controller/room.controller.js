@@ -11,6 +11,8 @@ const price_range = new NodeCache();
 const acreage_range = new NodeCache();
 const filterList = require("../ultil/filterFuncList")
 const MulitipleFilter = require('../ultil/multipleFilter');
+const Pagination = require('../ultil/pagination');
+
 
 var url = require('url');
 
@@ -150,6 +152,10 @@ exports.searchRoom = (req, res) => {
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     var q = url.parse(fullUrl, true);
     const params = q.query;
+
+    const { page_index, items_per_page } = params;
+
+    // filter key
     Object.keys(params).forEach(key => {
         if (!params[key]) {
             delete params[key];
@@ -161,11 +167,8 @@ exports.searchRoom = (req, res) => {
             roomSelectAllCache.get("selectAll"), ",");
 
         res.json({
-            message: "Ok", data:
-            {
-                ...multipleFilter.filterAll(params)
-            }
-
+            message: "Ok",
+            ...Pagination.pagination(multipleFilter.filterAll(params), page_index, items_per_page)
         });
     }
     else {
@@ -177,12 +180,16 @@ exports.searchRoom = (req, res) => {
 
             const rows = Object.keys(values).map((key) => { return values[key] })
 
-            const selectAll = rows.map(value => {
-                return {
+            const selectAll = [];
+
+            rows.map(value => {
+                selectAll.push({
                     ...createObjectModul.normalizeObjectByKeyPair(keyList1, keyList2, newKeyList, value),
                     createTime: new Date(value.createTime)
-                }
+                })
+
             })
+
 
 
             roomSelectAllCache.set("selectAll", selectAll, 10);
@@ -190,12 +197,10 @@ exports.searchRoom = (req, res) => {
             const multipleFilter = new MulitipleFilter(filterList.roomListFilter, selectAll, ",");
 
 
-            res.json({
-                message: "Ok", data:
-                {
-                    ...multipleFilter.filterAll(params)
-                }
 
+            res.json({
+                message: "Ok",
+                ...Pagination.pagination(multipleFilter.filterAll(params), page_index, items_per_page)
             });
 
         }).catch(err => {
