@@ -27,7 +27,7 @@ class MulitipleFilter {
 
         this.listFilterFunc.forEach((filterFunc, _) => {
             filteredValue = filteredValue.filter((v) => {
-                console.log("param",v.district);
+                // console.log("param",v.district);
                 return filterFunc.func(v,filterFunc.params) });
         })
 
