@@ -239,14 +239,14 @@ exports.getRoomPriceRange = (req, res) => {
         roomModel.getRoomPriceRange().then(value => {
 
             const { max_price, min_price } = value[0];
-            const price_range = {
+            const range = {
                 max_price: max_price ? max_price : 0,
                 min_price: min_price ? min_price : 0,
             }
 
-            price_range.set("price_range", price_range, 10)
+            price_range.set("price_range", range, 10)
 
-            res.json(price_range)
+            res.json(range)
         }).catch(err => {
             res.json({
                 err: err.message
@@ -265,13 +265,13 @@ exports.getAcreageRange = (req, res) => {
     else {
         roomModel.getAcreageRange().then(value => {
             const { max_acreage, min_acreage } = value[0];
-            const acreage_range = {
+            const range = {
                 max_acreage: max_acreage ? max_acreage : 0,
                 min_acreage: min_acreage ? min_acreage : 0
             }
-            acreage_range.set("acreage_range", acreage_range, 10)
+            acreage_range.set("acreage_range", range, 10)
 
-            res.json(acreage_range)
+            res.json(range)
         }).catch(err => {
             res.json({
                 err: err.message
