@@ -31,11 +31,11 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW
 
 ###
 
-GET http://localhost:3001/room/getAll
+GET http://localhost:3001/room/currentRoom/h
 
 ###
 
-GET http://localhost:3001/room/search?min_price=10&page_index=1&items_per_page=4
+GET http://localhost:3001/room/getAll
 
 ###
 

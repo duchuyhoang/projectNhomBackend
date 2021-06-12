@@ -2,8 +2,6 @@ const db = require('../common/connection');
 const staticConst = require('../common/staticConst');
 class Room {
 
-    static #moreConditionRoomSelector = ""
-
     static #baseRoomInfoQuery = `SELECT room.*,
  province._name AS cityName,
  district._name AS districtName,
@@ -24,8 +22,7 @@ user_profile.phone AS user_phone,
  LEFT JOIN utilities_in_room ON room.id=utilities_in_room.id_room
  LEFT JOIN utilities ON utilities.id=utilities_in_room.id_ultility
  LEFT JOIN user_profile ON room.belongTo=user_profile.id_user
- WHERE room.isShow=1
-   `
+ WHERE room.isShow=1`
 
 
 
@@ -93,14 +90,17 @@ user_profile.phone AS user_phone,
 
     static getRoomByNameRouter(name) {
 
-        this.#moreConditionRoomSelector = `OR room.name_router="%${name}%  GROUP BY room.id"`;
 
         return new Promise((resolve, reject) => {
-            db.query(this.#baseRoomInfoQuery, (err, result) => {
+            db.query(this.#baseRoomInfoQuery + ` AND room.name_router LIKE  ` + db.escape('%'+name+ '%')  + 
+            ' GROUP BY room.id LIMIT 1', name, (err, result) => {
+
                 if (err)
                     reject(err);
-                else
-                    resolve(result)
+                else {
+                    resolve(result[0]?.id === null ||undefined ? [] : result)
+
+                }
             })
 
         })
