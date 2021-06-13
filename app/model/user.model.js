@@ -80,6 +80,19 @@ class User {
 
     }
 
+static changeUserPassword=(email,password)=>{
+    return new Promise((resolve, reject) => {
+db.query("UPDATE user_account SET hash_password = ? WHERE email = ?",[password,email],(err,result) => {
+    if(err)
+     reject({ status: 500, message: "Error with the server"})
+     else{
+         resolve(result)
+     }
+})
+
+    })
+}
+
 }
 
 

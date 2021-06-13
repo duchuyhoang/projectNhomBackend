@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/forgotPassword.css" />
+  </head>
+  <body>
+    <form class="form-container" id="form">
+      <h1 class="title">Nhập mật khẩu mới</h1>
+      <h3 class="email">Xin chào <%= email %></h3>
+      <input
+        class="input"
+        type="password"
+        id="password"
+        placeholder="Mật khẩu mới"
+      />
+      <input
+        class="input"
+        type="password"
+        id="password2"
+        placeholder="Nhập lại mật khẩu"
+      />
+      <p class="error" id="error"></p>
+      <p class="ok" id="ok"></p>
+      <div class="loader" id="loader"></div>
+      <button type="submit" class="submitButton" id="submit" onclick="{submit}">
+        Ok
+      </button>
+    </form>
+  </body>
+
+  <script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+      submit();
+    });
+
+    function submit(e) {
+      const loader = document.getElementById("loader");
+      const link = "<%= handleRouter %>";
+      const email = "<%= email %>";
+      const token = "<%= token %>";
+      const password1 = document.getElementById("password").value;
+      const password2 = document.getElementById("password2").value;
+      let error = "";
+
+      if (password1.length <= 5) {
+        error += "Pass word quá ngắn \n";
+      }
+
+      if (password1 !== password2) {
+        error += "Hai password không giống nhau \n";
+      }
+
+      if (error.length === 0) {
+        loader.style.display = "block";
+        fetch(link, {
+          method: "POST",
+          body: JSON.stringify({ email, password: password1 }),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: "Bearer " + token,
+          },
+        })
+          .then((response) => response.json())
+          .catch((err) => {
+            console.log(err);
+            loader.style.display = "none";
+          })
+          .then((data) => {
+            loader.style.display = "none";
+            console.log("ok");
+            document.getElementById("ok").innerHTML = "Đã reset mật khẩu";
+            document.getElementsByTagName("body").innerHTML = "<div>Đã reset mật khẩu<div>"
+          });
+      }
+      else{
+          document.getElementById("error").innerHTML =error
+      }
+    }
+  </script>
+</html>

@@ -26,24 +26,30 @@ Content-Type:application/json
 
 ###
 
-GET http://localhost:3001/room/getAcreageRange
+GET http://localhost:3001/hh
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEwMDAsInRva2VuRXhwaXJlVGltZSI6MTYyMDUwNjg5NjY5MSwiaWF0IjoxNjIwNTAzMjk2LCJleHAiOjE2MjA1MDY4OTZ9.dCsIB1rGIqsNzSSA3NuyfP-2JBeORcoMUwVH8HTdXYI
 
 ###
 
-GET http://localhost:3001/room/currentRoom/h
+GET http://localhost:3001/room/currentRoom/hadadadadadaadada
 
 ###
 
-GET http://localhost:3001/room/getAll
+GET http://localhost:3001/set_session
 
 ###
 
-POST http://localhost:3001/signup
+POST http://localhost:3001/get_session
+
+###
+
+
+
+POST http://localhost:3001/forgotPassword/sendMail
 Content-Type:application/json
 
 {
-  "email":"hu@gmail.com",
+  "email":"huyhoang10032000@gmail.com",
   "password":"1234567",
   "user_name":"bhuy"
 }
