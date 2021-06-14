@@ -9,7 +9,7 @@ exports.roomListFilter = {
         return value.city == city
     },
     name: (value, name) => {
-        return value.name.indexOf(name) !== -1;
+        return value.name.toLowerCase().indexOf(name) !== -1;
     },
     min_price: (value, price) => {
         return value.price >= price;
@@ -43,4 +43,21 @@ exports.roomListFilter = {
         }
         return pass;
     }
+}
+
+
+exports.roomPendingFilter={
+    name: (value, name) => {
+        return value.name.toLowerCase().indexOf(name) !== -1 
+        || value.user_name.toLowerCase().indexOf(name) !== -1;
+    },
+    ward: (value, ward) => {
+        return value.ward == ward
+    },
+    district: (value, district) => {
+        return value.district == district;
+    },
+    city: (value, city) => {
+        return value.city == city
+    },
 }

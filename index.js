@@ -17,6 +17,8 @@ app.use(session({
 
 const PORT=process.env.PORT||3001;
 const home=require("./app/routers/home.router");
+const user=require("./app/routers/user.router");
+const admin=require("./app/routers/admin.router");
 const login=require("./app/routers/login.router")
 const signUp=require("./app/routers/signup.router")
 const room=require("./app/routers/room.router")
@@ -44,27 +46,17 @@ app.set("views","./app/views");;
 app.set("view engine","ejs");
 
 
-
-// var allowCrossDomain = function(req, res, next) {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     res.setHeader("Access-Control-Allow-Credentials", "true");
-//     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-//     res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-//     next();
-// }
-
-// app.use(allowCrossDomain)
-
 app.use("/",home);
 app.use("/",login);
 app.use("/",signUp);
+app.use("user",user);
 app.use("/room",room);
 app.use("/province",province);
 app.use("/district",district);
 app.use("/ultility",ultility);
 app.use("/ward",ward);
 app.use("/forgotPassword",forgotPassword)
-
+app.use("/admin",admin)
 
 app.get("/hh",(req,res)=>{
     res.render("forgotPassword",{name:"jiu"});

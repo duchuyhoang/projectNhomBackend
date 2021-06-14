@@ -6,7 +6,7 @@ exports.checkEnoughPermission = (compareRole) => {
     return (req, res, next) => {
         const comparePermissionValue = getObjectKey.getKeyByValue(serverConst.userAccountPermission, compareRole);
 
-        const userPermissionValue = getObjectKey.getKeyByValue(serverConst.userAccountPermission, req.body.permission || null)
+        const userPermissionValue = getObjectKey.getKeyByValue(serverConst.userAccountPermission, req.body.permission || req.oldTokenInfo.permission || null)
 
         if (!userPermissionValue || userPermissionValue < comparePermissionValue)
             res.status(403).json({ message: "Fobbiden", status: 403 })

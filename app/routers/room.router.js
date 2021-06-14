@@ -52,4 +52,7 @@ roomRouter.get("/getPriceRange",roomController.getRoomPriceRange);
 
 roomRouter.get("/getAcreageRange",roomController.getAcreageRange);
 
+roomRouter.get("/getPendingRoom",roomController.getPendingRoom);
+
+
 module.exports = roomRouter

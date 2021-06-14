@@ -30,7 +30,6 @@ exports.signUp = async (req, res) => {
     const hash_password = req.body.password
 
     User.signUp({ ...req.body, hash_password }).then((value) => {
-        console.log("v", value.returnRow.insertId);
         res.json({
             status: 200, message: "Sign up successful",
             accessToken: generateAccessToken({

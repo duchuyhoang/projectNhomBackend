@@ -33,6 +33,7 @@ exports.verifyToken = (req, res, next) => {
     else {
 
         jwt.verify(token, process.env.TOKEN_SECRET, (err, decode) => {
+            // console.log("decode",decode);
             if (err) {
                 res.status(401).json({ message: "Unauthorized" });
             }
@@ -41,6 +42,7 @@ exports.verifyToken = (req, res, next) => {
                 req.body.email = decode.email || null;
                 // Return a old token info
                 req.body.oldTokenInfo = decode;
+                req.oldTokenInfo=decode;
                 next();
             }
 
@@ -68,6 +70,7 @@ exports.verifyTokenResetPassword=(req,res,next)=>{
                 req.body.email = decode.email || null;
                 // Return a old token info
                 req.body.oldTokenInfo = decode;
+                req.oldTokenInfo=decode;
                 next();
             }
 
@@ -76,4 +79,6 @@ exports.verifyTokenResetPassword=(req,res,next)=>{
     }
 }
 
+
+// exports.parseJWT=(req,res,next)
 
