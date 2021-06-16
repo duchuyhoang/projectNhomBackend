@@ -27,8 +27,20 @@ exports.userAccountPermission={
     "2":"ROOT_ADMIN"
 }
 
-exports.accountPermissionStatus={
-    PENDING:-1,
-    REJECT:0,
+exports.userAccountPermissionPending={
+    REJECT:-1,
+    PENDING:0,
     APPROVE:1
+}
+
+exports.accountPermissionStatus={
+    REJECT:-1,
+    PENDING:0,
+    APPROVE:1
+}
+
+exports.roomStatus={
+    HIDDEN:-1,
+    PENDING:0,
+    SHOW:1,
 }

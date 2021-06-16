@@ -2,8 +2,8 @@ POST http://localhost:3001/login
 Content-Type:application/json
 
 {
-  "email":"huyhoang10032000@gmail.com",
-  "password":"12345"
+  "email":"huy123",
+  "password":"121344"
 }
 
 ###
@@ -39,14 +39,19 @@ GET http://localhost:3001/set_session
 
 ###
 
-POST http://localhost:3001/get_session
+POST http://localhost:3001/admin/rejectRoom
+Content-Type:application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyMzc2NTY4NzA2NiwiaWF0IjoxNjIzNzYyMDg3LCJleHAiOjE2MjM3NjU2ODd9.Er41_GQMxoH1Ov_0dzvL6LhQ0FmvAKDMjg7IH9v442A
 
+{
+  "id_room":92
+}
 ###
 
 
 
-POST http://localhost:3001/forgotPassword/sendMail
-Content-Type:application/json
+POST http://localhost:3001/admin/rejectARoom
+
 
 {
   "email":"huyhoang10032000@gmail.com",
