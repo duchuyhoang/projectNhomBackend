@@ -57,7 +57,7 @@ user_profile.phone AS user_phone,
     return new Promise((resolve, reject) => {
       db.query(this.#baseRoomInfoQuery + " GROUP BY room.id", (err, result) => {
         if (err) reject(err);
-        else resolve(result[0].id === null ? [] : result);
+        else resolve(result[0]?.id === null ? [] : result);
       });
     });
   }
