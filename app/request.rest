@@ -2,19 +2,16 @@ POST http://localhost:3001/login
 Content-Type:application/json
 
 {
-  "email":"huy123",
-  "password":"121344"
+  "email":"huyhoang10032000@gmail.com",
+  "password":"huyhoang"
 }
 
 ###
 
-GET http://localhost:3001/homes
+GET http://localhost:3001/admin/getPendingPromotion
 Content-Type:application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjIwMzg4MjUwLCJleHAiOjE2MjAzODgyODB9.7p-GzPVxYC1PNWf9lmvJPZT_oR4ZCKga2epd2Kb1iJg
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyMzkzOTg0MzQ4MiwiaWF0IjoxNjIzOTM2MjQzLCJleHAiOjE2MjM5Mzk4NDN9.G_0NRv_ltQKfjR7tWx_XrcIOnns_8VkrO8PGNfsAetc
 
-{
-    "token":"adada"
-}
 
 ###
 POST http://localhost:3001/refresh_token
@@ -35,13 +32,14 @@ GET http://localhost:3001/room/currentRoom/hadadadadadaadada
 
 ###
 
-GET http://localhost:3001/set_session
-
+GET http://localhost:3001/room/getPendingRoom?name=h
+Content-Type:application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyMzc3MDcyODgxNCwiaWF0IjoxNjIzNzY3MTI4LCJleHAiOjE2MjM3NzA3Mjh9.00seLe_mAsVO7qp3xTgQs9HGHnrC8zlJYT5Gw9H4TFo
 ###
 
 POST http://localhost:3001/admin/rejectRoom
 Content-Type:application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyMzc2NTY4NzA2NiwiaWF0IjoxNjIzNzYyMDg3LCJleHAiOjE2MjM3NjU2ODd9.Er41_GQMxoH1Ov_0dzvL6LhQ0FmvAKDMjg7IH9v442A
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyMzc3MDcyODgxNCwiaWF0IjoxNjIzNzY3MTI4LCJleHAiOjE2MjM3NzA3Mjh9.00seLe_mAsVO7qp3xTgQs9HGHnrC8zlJYT5Gw9H4TFo
 
 {
   "id_room":92
@@ -50,7 +48,7 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW
 
 
 
-POST http://localhost:3001/admin/rejectARoom
+GET http://localhost:3001/user/1
 
 
 {

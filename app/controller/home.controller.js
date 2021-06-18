@@ -3,7 +3,7 @@ const User=require("../model/user.model");
 
 
 exports.currentUser=async (req,res)=>{
-const {id}=req.body;
+const id=req.body.id || req.params.userId;
 try{
 const result =await User.getUserInfo(id);
 if(!!result){
@@ -17,3 +17,4 @@ catch(err){
 
 
 }
+
