@@ -6,7 +6,7 @@ const homeController=require('../controller/home.controller');
 
 homeRouter.get("/current_user/:userId",loginMiddleware.verifyToken,homeController.currentUser);
 
-
+homeRouter.get("/user/:userId",homeController.currentUser)
 
 
 homeRouter.get("/homes",loginMiddleware.verifyToken,(req,res)=>{

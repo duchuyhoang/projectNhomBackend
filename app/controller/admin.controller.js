@@ -6,18 +6,18 @@ const Pagination = require("../ultil/pagination");
 var url = require("url");
 
 exports.getPendingPromotion = (req, res) => {
-  // id_user
+  // id_admin
   const { id = null } = req?.oldTokenInfo || {};
 
-  var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-  var q = url.parse(fullUrl, true);
-  const params = q.query;
+  // var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+  // var q = url.parse(fullUrl, true);
+  // const params = q.query;
 
-  const { page_index, items_per_page } = params;
+  // const { page_index, items_per_page } = params;
 
   Admin.getPromotionRequest(id)
     .then((value) => {
-      res.json({ ...Pagination.pagination(value, page_index, items_per_page) });
+      res.json({ data:value });
       //   res.json({data:value});
     })
     .catch((err) => {
@@ -54,6 +54,31 @@ exports.acceptPromotionRequest = (req, res) => {
 
   // promotePermission
 };
+
+exports.rejectPromotionRequest = (req, res) => {
+  const { id_user } = req.body;
+  // id admin
+  const { id = null } = req?.oldTokenInfo || {};
+
+  if (id_user) {
+    Admin.rejectPromotionRequest(id, id_user)
+      .then((ok) => {
+        User.demotePermission(id_user)
+          .then((res) => {
+            res.json({ message: "Kho thành công" });
+          })
+          .then((e) => {
+            res.status(409).json({ message: "Thử lại" });
+          });
+      })
+      .catch((err) => {
+        res.status(409).json({ message: "Thử lại" });
+      });
+  }
+
+  
+}
+
 
 exports.acceptRoom = (req, res) => {
   const { id = null } = req.oldTokenInfo || {};

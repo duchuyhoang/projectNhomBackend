@@ -1,5 +1,5 @@
 const db = require("../common/connection");
-const databaseConst=require("../common/const");
+const databaseConst = require("../common/const");
 class User {
   constructor(id) {
     this.id = id;
@@ -97,24 +97,22 @@ class User {
   };
 
   static checkCanRequestAPromotion = (id_user) => {
-return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM user_promotion_request WHERE id_user=? AND promotion_status=${databaseConst.accountPermissionStatus.PENDING}
-    AND promotion_status=0`
-    ,id_user,(err,result)=>{
-if(err){
-     reject({message:"Lỗi"})
-}
-else if(result.length>0){
-  reject({message:"Bạn đã request"});
-}
-else{
-    resolve({message:"Can request"})
-}
-
-
-    })
-})
-
+    return new Promise((resolve, reject) => {
+      db.query(
+        `SELECT * FROM user_promotion_request WHERE id_user=? AND promotion_status=${databaseConst.accountPermissionStatus.PENDING}
+    AND promotion_status=0`,
+        id_user,
+        (err, result) => {
+          if (err) {
+            reject({ message: "Lỗi" });
+          } else if (result.length > 0) {
+            reject({ message: "Bạn đã request" });
+          } else {
+            resolve({ message: "Can request" });
+          }
+        }
+      );
+    });
   };
 
   static requestAPromotionRequest = (id_admin, id_user) => {
@@ -131,21 +129,31 @@ else{
     });
   };
 
-static promotePermission=(id_user)=>{
-return new Promise((resolve, reject) => {
+  static promotePermission = (id_user) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "UPDATE user_account SET permission=0 WHERE id=?",
+        [id_user],
+        (err, result) => {
+          if (err) return reject(err);
+          else resolve(result);
+        }
+      );
+    });
+  };
 
-db.query("UPDATE user_account SET permission=0 WHERE id=?",[id_user],(err, result) => {
-if(err)
-return reject(err);
-else
-resolve(result);
-
-})
-
-})
-
+static demotePermission=(id_user)=>{
+  return new Promise((resolve, reject) => {
+    db.query(
+      "UPDATE user_account SET permission=-1 WHERE id=?",
+      [id_user],
+      (err, result) => {
+        if (err) return reject(err);
+        else resolve(result);
+      }
+    );
+  });
 }
-
 
 }
 
