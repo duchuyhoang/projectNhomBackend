@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: phong_tro
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.25
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,62 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `admin` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `facebook_link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `isActive` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin`
---
-
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `admin_update_user_status`
---
-
-DROP TABLE IF EXISTS `admin_update_user_status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `admin_update_user_status` (
-  `id_admin` int unsigned DEFAULT NULL,
-  `id_user` int unsigned DEFAULT NULL,
-  `action_time` timestamp NOT NULL,
-  KEY `id_admin` (`id_admin`),
-  KEY `id_user` (`id_user`),
-  CONSTRAINT `admin_update_user_status_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id`),
-  CONSTRAINT `admin_update_user_status_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin_update_user_status`
---
-
-LOCK TABLES `admin_update_user_status` WRITE;
-/*!40000 ALTER TABLE `admin_update_user_status` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin_update_user_status` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `booking`
@@ -85,11 +29,12 @@ CREATE TABLE `booking` (
   `id_room` int unsigned DEFAULT NULL,
   `id_user` int unsigned DEFAULT NULL,
   `deposit` float NOT NULL,
+  `status` int DEFAULT '0',
   KEY `id_room` (`id_room`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`),
   CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,13 +57,13 @@ CREATE TABLE `comments` (
   `id_comment` int unsigned NOT NULL AUTO_INCREMENT,
   `id_room` int unsigned DEFAULT NULL,
   `id_user` int unsigned DEFAULT NULL,
-  `content` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_comment`),
   KEY `id_room` (`id_room`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`),
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +90,7 @@ CREATE TABLE `current_user_in_room` (
   KEY `id_user` (`id_user`),
   CONSTRAINT `current_user_in_room_ibfk_1` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`),
   CONSTRAINT `current_user_in_room_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +117,7 @@ CREATE TABLE `district` (
   PRIMARY KEY (`id`),
   KEY `_province_id` (`_province_id`),
   CONSTRAINT `district_ibfk_1` FOREIGN KEY (`_province_id`) REFERENCES `province` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=710 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=710 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +145,7 @@ CREATE TABLE `lease_update_user_history` (
   KEY `id_user` (`id_user`),
   CONSTRAINT `lease_update_user_history_ibfk_1` FOREIGN KEY (`id_lease`) REFERENCES `user_account` (`id`),
   CONSTRAINT `lease_update_user_history_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +169,7 @@ CREATE TABLE `province` (
   `_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +197,7 @@ CREATE TABLE `review` (
   KEY `id_user` (`id_user`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`),
   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,23 +220,23 @@ CREATE TABLE `room` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `capacity` int DEFAULT NULL,
   `acreage` int DEFAULT NULL,
-  `overview` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `overview` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` float NOT NULL,
   `rent_or_sale` tinyint DEFAULT '0',
   `longtitude` float DEFAULT NULL,
   `latitude` float DEFAULT NULL,
   `city` int unsigned NOT NULL,
   `district` int unsigned NOT NULL,
-  `house_number` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `house_number` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `isShow` tinyint(1) DEFAULT '1',
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `name_router` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name_router` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `belongTo` int unsigned DEFAULT NULL,
   `water_bill` float NOT NULL,
   `utility_bill` float NOT NULL,
-  `street` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `ward` int unsigned DEFAULT NULL,
-  `alley` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alley` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name-router_UNIQUE` (`name_router`),
@@ -305,7 +250,7 @@ CREATE TABLE `room` (
   CONSTRAINT `room_ibfk_4` FOREIGN KEY (`city`) REFERENCES `province` (`id`),
   CONSTRAINT `room_ibfk_5` FOREIGN KEY (`district`) REFERENCES `district` (`id`),
   CONSTRAINT `room_ibfk_7` FOREIGN KEY (`ward`) REFERENCES `ward` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,12 +272,12 @@ DROP TABLE IF EXISTS `room_images`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_images` (
   `id_room` int unsigned DEFAULT NULL,
-  `link` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `id_image` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `link` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_image` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   UNIQUE KEY `id_image_UNIQUE` (`id_image`),
   KEY `id_room` (`id_room`),
   CONSTRAINT `room_images_ibfk_1` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,13 +300,13 @@ DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_account_status` tinyint DEFAULT '1',
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `user_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `permission` tinyint DEFAULT '-1',
-  `hash_password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `hash_password` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11313145 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11313145 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +315,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` VALUES (1,1,'huyhoang10032000@gmail.com','Đức Huy Hoàng',1,'12345'),(3,1,'huy123','hhhh',-1,'121344'),(5,1,'ADA','avvv',-1,'llll'),(11313143,1,'huytest@gmail.com','huy final test',-1,'10032000');
+INSERT INTO `user_account` VALUES (1,1,'huyhoang10032000@gmail.com','Đức Huy Hoàng',1,'huyhoang'),(3,1,'huy123','hhhh',-1,'121344'),(11313143,1,'huytest@gmail.com','huy final test',0,'10032000');
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -384,14 +329,14 @@ DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
   `id_profile` int unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int unsigned DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar` varchar(400) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_profile`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,7 +345,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (1,1,'0328640767','https://scontent.fhan5-6.fna.fbcdn.net/v/t31.18172-8/27788301_747405972119527_849243654152381069_o.jpg?_nc_cat=107&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=a1WzBnDpWUUAX8IHO1q&_nc_ht=scontent.fhan5-6.fna&oh=c043f153db6cf0c5867842181190e531&oe=60BF3CD1',NULL,'Đức Huy Hoàng'),(2,3,NULL,NULL,NULL,'hhhh'),(17,11313143,NULL,NULL,NULL,'huy final test');
+INSERT INTO `user_profile` VALUES (1,1,'0328640767','https://scontent-hkg4-1.xx.fbcdn.net/v/t31.18172-8/27788301_747405972119527_849243654152381069_o.jpg?_nc_cat=107&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=O9i_XCuc794AX-txMcN&_nc_ht=scontent-hkg4-1.xx&oh=99d42aae5ddaf1273316c457a546ffbc&oe=60EABE51',NULL,'Đức Huy Hoàng'),(2,3,'3131313131','https://scontent-hkg4-1.xx.fbcdn.net/v/t31.18172-8/27788301_747405972119527_849243654152381069_o.jpg?_nc_cat=107&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=O9i_XCuc794AX-txMcN&_nc_ht=scontent-hkg4-1.xx&oh=99d42aae5ddaf1273316c457a546ffbc&oe=60EABE51',NULL,'hhhh'),(17,11313143,NULL,NULL,NULL,'huy final test');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,15 +357,17 @@ DROP TABLE IF EXISTS `user_promotion_request`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_promotion_request` (
-  `id_admin` int unsigned DEFAULT NULL,
-  `id_user` int unsigned DEFAULT NULL,
+  `id_admin` int unsigned NOT NULL,
+  `id_user` int unsigned NOT NULL,
   `action_time` timestamp NOT NULL,
-  `promotion_status` tinyint DEFAULT '-1',
+  `promotion_status` tinyint DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
   KEY `id_admin` (`id_admin`),
   KEY `id_user` (`id_user`),
-  CONSTRAINT `user_promotion_request_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `admin` (`id`),
+  CONSTRAINT `user_promotion_request_ibfk_1` FOREIGN KEY (`id_admin`) REFERENCES `user_account` (`id`),
   CONSTRAINT `user_promotion_request_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user_account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -429,6 +376,7 @@ CREATE TABLE `user_promotion_request` (
 
 LOCK TABLES `user_promotion_request` WRITE;
 /*!40000 ALTER TABLE `user_promotion_request` DISABLE KEYS */;
+INSERT INTO `user_promotion_request` VALUES (1,3,'2021-06-14 14:55:22',-1,1),(1,11313143,'2021-06-14 17:23:24',1,2);
 /*!40000 ALTER TABLE `user_promotion_request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,9 +389,9 @@ DROP TABLE IF EXISTS `utilities`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `utilities` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +418,7 @@ CREATE TABLE `utilities_in_room` (
   KEY `id_ultility` (`id_ultility`),
   CONSTRAINT `utilities_in_room_ibfk_1` FOREIGN KEY (`id_room`) REFERENCES `room` (`id`),
   CONSTRAINT `utilities_in_room_ibfk_2` FOREIGN KEY (`id_ultility`) REFERENCES `utilities` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -502,7 +450,7 @@ CREATE TABLE `ward` (
   CONSTRAINT `ward_ibfk_1` FOREIGN KEY (`_province_id`) REFERENCES `province` (`id`),
   CONSTRAINT `ward_ibfk_2` FOREIGN KEY (`_district_id`) REFERENCES `district` (`id`),
   CONSTRAINT `ward_ibfk_3` FOREIGN KEY (`_province_id`) REFERENCES `province` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11284 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11284 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -524,4 +472,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-09 22:17:06
+-- Dump completed on 2021-06-18 23:40:34

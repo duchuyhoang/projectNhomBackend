@@ -5,7 +5,7 @@ class Admin {
   static getPromotionRequest = (id_admin) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT user_promotion_request.*,user_profile.id_user,user_profile.avatar FROM phong_tro.user_promotion_request 
+        `SELECT user_promotion_request.*,user_profile.*,user_account.permission,user_account.email as email  FROM phong_tro.user_promotion_request 
         INNER JOIN user_profile ON user_promotion_request.id_user=user_profile.id_user 
         INNER JOIN user_account ON user_promotion_request.id_user=user_account.id WHERE user_promotion_request.id_admin=? AND promotion_status=${databaseConst.userAccountPermissionPending.PENDING}`,
         [id_admin],
