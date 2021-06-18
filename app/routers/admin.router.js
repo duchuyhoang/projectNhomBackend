@@ -15,6 +15,9 @@ adminRouter.post("/acceptRoom",permissionCheck.checkEnoughPermission("CO_ADMIN")
 
 adminRouter.post("/rejectRoom",permissionCheck.checkEnoughPermission("CO_ADMIN"),adminController.rejectRoom)
 
+adminRouter.post("/acceptUserPendingPromotionRequest",permissionCheck.checkEnoughPermission("CO_ADMIN"),adminController.acceptPromotionRequest);
+adminRouter.post("/rejectUserPendingPromotionRequest",permissionCheck.checkEnoughPermission("CO_ADMIN"),adminController.rejectPromotionRequest)
+
 
 module.exports = adminRouter
 

@@ -38,10 +38,10 @@ exports.acceptPromotionRequest = (req, res) => {
     Admin.acceptPromotionRequest(id, id_user)
       .then((ok) => {
         User.promotePermission(id_user)
-          .then((res) => {
+          .then((result) => {
             res.json({ message: "Thăng chức thành công" });
           })
-          .then((e) => {
+          .catch((e) => {
             res.status(409).json({ message: "Thử lại" });
           });
       })
@@ -64,10 +64,10 @@ exports.rejectPromotionRequest = (req, res) => {
     Admin.rejectPromotionRequest(id, id_user)
       .then((ok) => {
         User.demotePermission(id_user)
-          .then((res) => {
+          .then((result) => {
             res.json({ message: "Kho thành công" });
           })
-          .then((e) => {
+          .catch((e) => {
             res.status(409).json({ message: "Thử lại" });
           });
       })
