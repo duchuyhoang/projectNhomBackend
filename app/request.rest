@@ -27,7 +27,7 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW
 
 ###
 
-GET http://localhost:3001/room/search?min_acreage=100&max_acreage=133333&min_price=0&max_price=55555&page_index=1&items_per_page=4
+GET http://localhost:3001/room/search?min_acreage=100&max_acreage=133333&min_price=0&max_price=2000000&page_index=1&items_per_page=4
 
 ###
 

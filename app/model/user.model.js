@@ -8,7 +8,7 @@ class User {
   static getUserInfo(id) {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT user_profile.*,user_account.email as email,IF(COUNT(user_promotion_request.promotion_status)<1 AND user_account.permission < ${databaseConst.userAccountPermissionValueByName.CO_ADMIN},true,false) AS canRequest FROM user_profile INNER JOIN user_account ON user_account.id=user_profile.id_user LEFT JOIN user_promotion_request ON user_account.id=user_promotion_request.id_user AND user_promotion_request.promotion_status=${databaseConst.userAccountPermissionPending.PENDING} WHERE user_profile.id_user = ? GROUP BY user_account.id LIMIT 1`,
+        `SELECT user_profile.*,user_account.email as email,user_account.permission as permission,IF(COUNT(user_promotion_request.promotion_status)<1 AND user_account.permission < ${databaseConst.userAccountPermissionValueByName.CO_ADMIN},true,false) AS canRequest FROM user_profile INNER JOIN user_account ON user_account.id=user_profile.id_user LEFT JOIN user_promotion_request ON user_account.id=user_promotion_request.id_user AND user_promotion_request.promotion_status=${databaseConst.userAccountPermissionPending.PENDING} WHERE user_profile.id_user = ? GROUP BY user_account.id LIMIT 1`,
         [id],
         (err, result) => {
           if (err) reject("Error with server");
