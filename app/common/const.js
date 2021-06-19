@@ -27,6 +27,12 @@ exports.userAccountPermission={
     "2":"ROOT_ADMIN"
 }
 
+exports.userAccountPermissionValueByName={
+    GUEST:-1,
+    MEMBER:0,
+    CO_ADMIN:1
+}
+
 exports.userAccountPermissionPending={
     REJECT:-1,
     PENDING:0,
