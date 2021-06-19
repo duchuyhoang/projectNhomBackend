@@ -9,6 +9,8 @@ userRouter.use(loginMiddleware.verifyToken)
 userRouter.post("/requestPromotion",userController.requestPromotion);
 
 
+userRouter.get("/checkCanRequestPromotion",userController.checkUserRequestPromotion);
+
 
 
 

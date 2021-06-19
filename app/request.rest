@@ -10,11 +10,10 @@ Content-Type:application/json
 
 GET http://localhost:3001/admin/getPendingPromotion
 Content-Type:application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyMzkzOTg0MzQ4MiwiaWF0IjoxNjIzOTM2MjQzLCJleHAiOjE2MjM5Mzk4NDN9.G_0NRv_ltQKfjR7tWx_XrcIOnns_8VkrO8PGNfsAetc
-
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW5nMTAwMzIwMDBAZ21haWwuY29tIiwiaWQiOjEsInBlcm1pc3Npb24iOiJDT19BRE1JTiIsInRva2VuRXhwaXJlVGltZSI6MTYyNDAzMjY5ODk3MCwiaWF0IjoxNjI0MDI5MDk4LCJleHAiOjE2MjQwMzI2OTh9.-AFkECJI-yvtgUNhbCurgs08UrT7mhxRp2_V_opb6IQ
 
 ###
-POST http://localhost:3001/refresh_token
+GET http://localhost:3001/user/3
 Content-Type:application/json
 
 {
@@ -28,7 +27,7 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1eWhvYW
 
 ###
 
-GET http://localhost:3001/room/currentRoom/hadadadadadaadada
+GET http://localhost:3001/room/search?min_acreage=100&max_acreage=133333&min_price=0&max_price=55555&page_index=1&items_per_page=4
 
 ###
 

@@ -20,3 +20,17 @@ exports.requestPromotion = (req, res) => {
       res.status(404).json({ message: "Không thể gửi promotion request" });
     });
 };
+
+exports.checkUserRequestPromotion=(req,res)=>{
+  const { id } = req.oldTokenInfo;
+
+User.checkCanRequestAPromotion(id).then(value=>{
+  res.json({canRequest:true})
+}).catch(err=>{
+  res.json({canRequest:false});
+})
+
+
+}
+
+

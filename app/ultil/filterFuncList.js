@@ -20,7 +20,7 @@ exports.roomListFilter = {
     min_acreage:(value,acreage)=>{
         return value.acreage>=acreage
     },
-    max_price: (value,acreage)=>{
+    max_acreage: (value,acreage)=>{
         return value.acreage<=acreage;
     },
     utilities: (value, listUtilitiesId) => {
